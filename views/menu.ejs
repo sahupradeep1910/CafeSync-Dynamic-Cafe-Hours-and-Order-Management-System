@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ember & Grain — Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main class="main-content">
+    <section class="hero-section">
+      <p class="hero-eyebrow">What we make</p>
+      <h2 class="hero-title">Crafted with<br/><em>intention</em></h2>
+      <p class="hero-sub">Seasonal, single-origin, ethically sourced · Prices inclusive of tax</p>
+    </section>
+
+    <div class="menu-grid">
+
+      <div class="menu-category">
+        <div class="menu-category-header">
+          <span class="menu-category-icon">☕</span>
+          <h3 class="menu-category-title">Espresso Bar</h3>
+          <p class="menu-category-desc">All espresso drinks available with whole milk, oat, almond, or soy.</p>
+        </div>
+        <ul class="menu-list">
+          <% menu.espresso.forEach(function(item) { %>
+            <li class="menu-item">
+              <div class="menu-item-main">
+                <span class="menu-item-name"><%= item.name %></span>
+                <span class="menu-item-dots"></span>
+                <span class="menu-item-price">$<%= item.price %></span>
+              </div>
+              <p class="menu-item-desc"><%= item.desc %></p>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+
+      <div class="menu-category">
+        <div class="menu-category-header">
+          <span class="menu-category-icon">◎</span>
+          <h3 class="menu-category-title">Filter & Slow Bar</h3>
+          <p class="menu-category-desc">Brewed to order. Ask your barista about today's single origin.</p>
+        </div>
+        <ul class="menu-list">
+          <% menu.filter.forEach(function(item) { %>
+            <li class="menu-item">
+              <div class="menu-item-main">
+                <span class="menu-item-name"><%= item.name %></span>
+                <span class="menu-item-dots"></span>
+                <span class="menu-item-price">$<%= item.price %></span>
+              </div>
+              <p class="menu-item-desc"><%= item.desc %></p>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+
+      <div class="menu-category menu-category--food">
+        <div class="menu-category-header">
+          <span class="menu-category-icon">✦</span>
+          <h3 class="menu-category-title">From the Pastry Case</h3>
+          <p class="menu-category-desc">Baked fresh each morning. Available until sold out.</p>
+        </div>
+        <ul class="menu-list">
+          <% menu.food.forEach(function(item) { %>
+            <li class="menu-item">
+              <div class="menu-item-main">
+                <span class="menu-item-name"><%= item.name %></span>
+                <span class="menu-item-dots"></span>
+                <span class="menu-item-price">$<%= item.price %></span>
+              </div>
+              <p class="menu-item-desc"><%= item.desc %></p>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="menu-note">
+      <p>✦ We rotate single origins every 4–6 weeks. Current beans on our <strong>Instagram</strong>.</p>
+    </div>
+
+    <footer class="page-footer">
+      <p>Allergen information available on request. We are a nut-aware kitchen.</p>
+      <p class="footer-small">Prices subject to change · Last updated June 2025</p>
+    </footer>
+  </main>
+
+  <script src="/js/nav.js"></script>
+</body>
+</html>

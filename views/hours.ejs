@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ember & Grain — Hours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main class="main-content">
+    <section class="hero-section">
+      <p class="hero-eyebrow">Find us here</p>
+      <h2 class="hero-title">When we're<br/><em>brewing</em> for you</h2>
+      <p class="hero-sub">23 Kettle Lane, Maplewood · Est. 2019</p>
+    </section>
+
+    <div class="status-banner <%= status.open ? 'status-open' : 'status-closed' %>">
+      <div class="status-dot"></div>
+      <span class="status-label"><%= status.label %></span>
+      <span class="status-detail"><%= status.detail %></span>
+      <span class="status-time">as of <%= generatedAt %></span>
+    </div>
+
+    <section class="hours-section">
+      <table class="hours-table" role="table" aria-label="Weekly operating hours">
+        <thead>
+          <tr>
+            <th scope="col">Day</th>
+            <th scope="col">Opens</th>
+            <th scope="col">Closes</th>
+            <th scope="col">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% hours.forEach(function(row, index) { %>
+            <% const isToday = (index === today); %>
+            <tr class="hours-row <%= isToday ? 'hours-row--today' : '' %>" aria-current="<%= isToday ? 'true' : 'false' %>">
+              <td class="col-day">
+                <% if (isToday) { %><span class="today-pill">Today</span><% } %>
+                <span class="day-name"><%= row.day %></span>
+              </td>
+              <td class="col-time"><span class="time-val"><%= row.open %></span></td>
+              <td class="col-time"><span class="time-val"><%= row.close %></span></td>
+              <td class="col-note">
+                <% if (row.note) { %>
+                  <span class="note-text">✦ <%= row.note %></span>
+                <% } else { %>
+                  <span class="note-empty">—</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="page-footer">
+      <p>Hours may vary on public holidays. Follow us <strong>@emberandgrain</strong> for real-time updates.</p>
+      <p class="footer-small">Page generated server-side · refreshes on every visit</p>
+    </footer>
+  </main>
+
+  <script src="/js/clock.js"></script>
+  <script src="/js/nav.js"></script>
+</body>
+</html>

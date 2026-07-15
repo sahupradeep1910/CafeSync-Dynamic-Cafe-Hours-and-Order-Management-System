@@ -1,0 +1,26 @@
+<div class="grain"></div>
+
+<header class="site-header">
+  <div class="logo-block">
+    <a href="/" class="logo-link">
+      <div class="logo-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M20 8 C14 14, 26 18, 20 32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M13 16 C17 19, 23 19, 27 16" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <p class="logo-eyebrow">Specialty Coffee</p>
+        <h1 class="logo-name">Ember <em>&amp;</em> Grain</h1>
+      </div>
+    </a>
+  </div>
+  <nav class="site-nav">
+    <a href="/menu"      class="<%= page === 'menu'  ? 'active' : '' %>">Menu</a>
+    <a href="/hours"     class="<%= page === 'hours' ? 'active' : '' %>">Hours</a>
+    <a href="/our-story" class="<%= page === 'story' ? 'active' : '' %>">Our Story</a>
+    <a href="/order"     class="<%= page === 'order' ? 'active' : '' %>">Order</a>
+  </nav>
+  <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+</header>

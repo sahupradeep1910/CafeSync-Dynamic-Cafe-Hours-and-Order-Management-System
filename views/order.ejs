@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ember & Grain — Order Ahead</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main class="main-content">
+
+    <% if (submitted) { %>
+      <!-- Confirmation state -->
+      <div class="order-confirm">
+        <div class="confirm-icon">✦</div>
+        <h2 class="confirm-title">Order received,<br/><em><%= orderData.name %></em></h2>
+        <p class="confirm-sub">
+          Your <strong><%= orderData.item %></strong>
+          <% if (orderData.milk && orderData.milk !== 'none') { %>with <%= orderData.milk %> milk<% } %>
+          will be ready at <strong><%= orderData.pickupTime || 'your chosen time' %></strong>.
+        </p>
+        <p class="confirm-note">
+          We'll have it waiting at the bar. No app needed — just say your name.
+        </p>
+        <% if (orderData.notes) { %>
+          <p class="confirm-special">Special note: "<em><%= orderData.notes %></em>"</p>
+        <% } %>
+        <a href="/order" class="btn btn--primary" style="margin-top:2rem">Place another order</a>
+      </div>
+
+    <% } else { %>
+      <!-- Order form state -->
+      <section class="hero-section">
+        <p class="hero-eyebrow">Skip the queue</p>
+        <h2 class="hero-title">Order<br/><em>ahead</em></h2>
+        <p class="hero-sub">Ready in 5–10 minutes · Collection only at the bar</p>
+      </section>
+
+      <form class="order-form" method="POST" action="/order">
+
+        <div class="form-section">
+          <label class="form-label" for="name">Your name</label>
+          <input class="form-input" type="text" id="name" name="name" placeholder="e.g. Maya" required />
+        </div>
+
+        <div class="form-section">
+          <label class="form-label" for="item">What would you like?</label>
+          <select class="form-select" id="item" name="item" required>
+            <option value="" disabled selected>Choose a drink or pastry</option>
+            <optgroup label="— Espresso Bar —">
+              <% menu.espresso.forEach(function(i) { %>
+                <option value="<%= i.name %>"><%= i.name %> — $<%= i.price %></option>
+              <% }); %>
+            </optgroup>
+            <optgroup label="— Filter & Slow Bar —">
+              <% menu.filter.forEach(function(i) { %>
+                <option value="<%= i.name %>"><%= i.name %> — $<%= i.price %></option>
+              <% }); %>
+            </optgroup>
+            <optgroup label="— Pastry Case —">
+              <% menu.food.forEach(function(i) { %>
+                <option value="<%= i.name %>"><%= i.name %> — $<%= i.price %></option>
+              <% }); %>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Milk preference</label>
+          <div class="milk-options">
+            <% ['Whole', 'Oat', 'Almond', 'Soy', 'None'].forEach(function(m) { %>
+              <label class="milk-option">
+                <input type="radio" name="milk" value="<%= m.toLowerCase() %>" <%= m === 'Whole' ? 'checked' : '' %> />
+                <span><%= m %></span>
+              </label>
+            <% }); %>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label" for="pickupTime">Pick-up time</label>
+          <input class="form-input" type="time" id="pickupTime" name="pickupTime" required />
+          <p class="form-hint">We're open today — see <a href="/hours">hours</a> for reference.</p>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label" for="notes">Any special requests? <span class="optional">(optional)</span></label>
+          <textarea class="form-textarea" id="notes" name="notes" rows="3" placeholder="Extra hot, no sugar, favourite mug..."></textarea>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn btn--primary btn--lg">Place order →</button>
+          <p class="form-disclaimer">No payment taken online — settle at the bar on collection.</p>
+        </div>
+
+      </form>
+    <% } %>
+
+    <footer class="page-footer">
+      <p>Questions? Call us on <strong>(555) 012-3456</strong> or DM <strong>@emberandgrain</strong></p>
+      <p class="footer-small">Order-ahead available during opening hours only</p>
+    </footer>
+  </main>
+
+  <script src="/js/nav.js"></script>
+</body>
+</html>
